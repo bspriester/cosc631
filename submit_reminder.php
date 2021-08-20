@@ -161,7 +161,7 @@
             <th>Delete reminder</th>
         </tr>
         <?php
-        $sql = "SELECT * FROM reminders_table WHERE ReminderDate > CURRENT_DATE ORDER BY ReminderDate DESC;";
+        $sql = "SELECT * FROM reminders_table WHERE ReminderDate < CURRENT_DATE ORDER BY ReminderDate DESC;";
         $query=mysqli_query($con, $sql);
         $cnt=1;
         //Commenting out the below since I believe it was for testing:
@@ -225,7 +225,7 @@
             <th>Delete reminders</th>
         </tr>
         <?php
-        $sql = "SELECT * FROM reminders_table WHERE ReminderDate < CURRENT_DATE ORDER BY ReminderDate DESC;";
+        $sql = "SELECT * FROM reminders_table WHERE ReminderDate > CURRENT_DATE ORDER BY ReminderDate DESC;";
         $query=mysqli_query($con, $sql);
         $cnt=1;
         //Commenting out the below since I believe it was for testing:
