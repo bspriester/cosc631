@@ -63,6 +63,10 @@
 </head>
 <body>
     <!-- API stuff -->
+    <form action="submit_reminder.php" method="post">
+        Enter IP Address for Time Zone: <input type="text" name="ipAddress" placeholder="X.X.X.X">
+        <input type="submit">
+    </form>
     <?php
     //Get visitor IP, taking into account proxy possibility.
         function getIp() {
@@ -75,15 +79,18 @@
             return $ip;
         }
         //Commenting out the below for testing.
-        $getIp = getIp();
+        //$getIp = getIp();
         //$getIp = "76.231.70.33";
         //$getIp = "8.8.8.8";
+        $getIp = $_POST['ipAddress'];
         $apiWithIp = "http://ip-api.com/json/" . $getIp;
         $getInfo = file_get_contents($apiWithIp);
         $decode = json_decode($getInfo);
-        echo $decode->timezone;
+        echo "Your timezone is: " . "$decode->timezone";
+        //This works -> //echo $decode->timezone;
         //$ip = getIPAddress();
     ?>
+    <br><br>
     <!-- Reminder set message -->
     <?php
         $reminderSetData = $_POST["reminder"];
@@ -95,13 +102,6 @@
         echo $reminderSetMessage; 
     ?>
     <br>
-    <!-- Test for row forms -->
-    <?php
-        $editDate = $_POST["editDate"];
-        $editData = $_POST["editData"];
-        $testEdit = "Test for $editData and $editDate";
-        echo $testEdit;
-    ?>
     <!-- Set reminder form --> 
     <div class="main_page">
         <form action="submit_reminder.php" method="post">
@@ -222,6 +222,7 @@
             <th>Time</th>
             <th>Reminder</th>
             <th>Submit time or reminder changes</th>
+            <th>Delete reminders</th>
         </tr>
         <?php
         $sql = "SELECT * FROM reminders_table WHERE ReminderDate < CURRENT_DATE ORDER BY ReminderDate DESC;";
